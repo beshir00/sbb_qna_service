@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 @Controller
 public class MainController {
 
@@ -31,5 +34,21 @@ public class MainController {
     public int showIncrease(){
         increaseNo++;
         return increaseNo;
+    }
+
+    @GetMapping("/gugudan")
+    @ResponseBody
+    public String gugudan(Integer dan, Integer limit){
+
+        if (dan == null){
+            dan = 9;
+        }
+        if (limit == null){
+            limit = 9;
+        }
+        Integer finalDan = dan;
+        return IntStream.rangeClosed(1,limit)
+                .mapToObj(i -> "%d * %d = %d".formatted(finalDan, i, i*finalDan))
+                .collect(Collectors.joining("<br>\n"));
     }
 }
