@@ -10,4 +10,5 @@ public class SbbApplication {
 		SpringApplication.run(SbbApplication.class, args);
 	}
 
+
 }
