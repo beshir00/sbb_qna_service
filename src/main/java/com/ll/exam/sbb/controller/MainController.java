@@ -1,9 +1,8 @@
-package com.ll.exam.sbb;
+package com.ll.exam.sbb.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -50,5 +49,6 @@ public class MainController {
         return IntStream.rangeClosed(1,limit)
                 .mapToObj(i -> "%d * %d = %d".formatted(finalDan, i, i*finalDan))
                 .collect(Collectors.joining("<br>\n"));
+
     }
 }

@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-class Article {
+public class Article {
     private static int lastId = 0;
 
     private final int id;

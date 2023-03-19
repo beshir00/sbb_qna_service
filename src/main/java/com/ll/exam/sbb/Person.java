@@ -3,7 +3,7 @@ package com.ll.exam.sbb;
 import lombok.Data;
 
 @Data
-class Person {
+public class Person {
     private static int lastId = 0;
 
     private final int id;
