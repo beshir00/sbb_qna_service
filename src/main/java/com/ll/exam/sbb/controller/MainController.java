@@ -27,11 +27,11 @@ public class MainController {
     public int showMinus(int a, int b){
         return a-b;
     }
-    int increaseNo = -1;
+    int increaseNo = 0;
     @GetMapping("/increase")
     @ResponseBody
     public int showIncrease(){
-        increaseNo++;
+        ++increaseNo;
         return increaseNo;
     }
 
