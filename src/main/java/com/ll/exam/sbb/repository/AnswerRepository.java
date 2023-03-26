@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 public interface AnswerRepository extends JpaRepository<Answer, Integer> {
     @Transactional
     @Modifying
-    @Query(value = "truncate answer",nativeQuery = true)
+    @Query(value = "truncate answer", nativeQuery = true)
     void truncate();
+
+    Answer findByContent(String Content);
 }

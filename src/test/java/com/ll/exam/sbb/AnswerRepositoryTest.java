@@ -3,11 +3,13 @@ package com.ll.exam.sbb;
 import com.ll.exam.sbb.repository.AnswerRepository;
 import com.ll.exam.sbb.repository.QuestionRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 
+import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 public class AnswerRepositoryTest {
 
@@ -28,11 +30,11 @@ public class AnswerRepositoryTest {
         q2.setContent("id는 자동으로 생성되나요?");
         q2.setCreateDate(LocalDateTime.now());
         questionRepository.save(q2);
-
     }
 
     void clearData(){
         questionRepository.disableForeignKeyCheck();
+        questionRepository.truncate();
         answerRepository.truncate();
         questionRepository.enableForeignKeyCheck();
     }
@@ -41,6 +43,18 @@ public class AnswerRepositoryTest {
     void beforeEach(){
         clearData();
         makeSampleData();
+    }
+
+    @Test
+    void 저장(){
+        Question q = questionRepository.findById(2).get();
+
+        Answer a = new Answer();
+        a.setQuestion(q);
+        a.setContent("네 자동으로 생성됩니다.");
+        a.setCreateDate(LocalDateTime.now());
+        answerRepository.save(a);
+
     }
 
 
