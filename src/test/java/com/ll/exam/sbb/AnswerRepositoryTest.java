@@ -6,8 +6,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 @SpringBootTest
 public class AnswerRepositoryTest {
 
@@ -15,16 +21,31 @@ public class AnswerRepositoryTest {
     private QuestionRepository questionRepository;
     @Autowired
     private AnswerRepository answerRepository;
+    private int lastSampleDataId;
 
     void clearData(){
         QuestionRepositoryTest.clearData(questionRepository);
-        questionRepository.disableForeignKeyCheck();
-        answerRepository.truncate();
-        questionRepository.enableForeignKeyCheck();
+
+        answerRepository.deleteAll();
+        answerRepository.truncateTable();
     }
 
     private void makeSampleData(){
         QuestionRepositoryTest.makeSampleData(questionRepository);
+
+        Question q = questionRepository.findById(1).get();
+
+        Answer a1 = new Answer();
+        a1.setContent("sbb는 질문답변 게시판입니다.");
+        a1.setQuestion(q);
+        a1.setCreateDate(LocalDateTime.now());
+        answerRepository.save(a1);
+
+        Answer a2 = new Answer();
+        a2.setContent("sbb에서는 주로 스프링관련 내용을 다룹니다.");
+        a2.setQuestion(q);
+        a2.setCreateDate(LocalDateTime.now());
+        answerRepository.save(a2);
     }
 
     @BeforeEach
@@ -43,6 +64,32 @@ public class AnswerRepositoryTest {
         a.setCreateDate(LocalDateTime.now());
         answerRepository.save(a);
 
+    }
+
+    @Test
+    void 조회() {
+        Answer a = answerRepository.findById(1).get();
+        assertThat(a.getContent()).isEqualTo("sbb는 질문답변 게시판입니다.");
+    }
+
+    @Test
+    void 관련된_question_조회() {
+        Answer a = answerRepository.findById(1).get();
+        Question q = a.getQuestion();
+
+        assertThat(q.getId()).isEqualTo(1);
+    }
+
+    @Test
+    @Transactional
+    @Rollback(false)
+    void question으로부터_관련된_질문들_조회() {
+        // SELECT * FROM question WHERE id = 1;
+        List<Answer> answerList = questionRepository.findById(1).get().getAnswerList();
+
+
+        assertThat(answerList.size()).isEqualTo(2);
+        assertThat(answerList.get(0).getContent()).isEqualTo("sbb는 질문답변 게시판입니다.");
     }
 
 

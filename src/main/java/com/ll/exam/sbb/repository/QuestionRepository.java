@@ -1,6 +1,7 @@
 package com.ll.exam.sbb.repository;
 
 import com.ll.exam.sbb.Question;
+import com.ll.exam.sbb.base.repository.RepositoryUtil;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -8,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface QuestionRepository extends JpaRepository <Question, Integer> {
+public interface QuestionRepository extends JpaRepository <Question, Integer> , RepositoryUtil {
 
     Question findBySubject(String subject);
 
@@ -18,18 +19,8 @@ public interface QuestionRepository extends JpaRepository <Question, Integer> {
 
     @Transactional
     @Modifying
-    @Query(value = "truncate question", nativeQuery = true)
+    @Query(value = "ALTER TABLE question AUTO_INCREMENT = 1", nativeQuery = true)
     void truncate();
-
-    @Transactional
-    @Modifying
-    @Query(value = "SET FOREIGN_KEY_CHECKS = 0", nativeQuery = true)
-    void disableForeignKeyCheck();
-
-    @Transactional
-    @Modifying
-    @Query(value = "SET FOREIGN_KEY_CHECKS = 1", nativeQuery = true)
-    void enableForeignKeyCheck();
 
 }
 
