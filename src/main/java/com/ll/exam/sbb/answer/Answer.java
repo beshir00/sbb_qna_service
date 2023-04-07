@@ -1,6 +1,6 @@
-package com.ll.exam.sbb;
+package com.ll.exam.sbb.answer;
 
-
+import com.ll.exam.sbb.question.Question;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +19,7 @@ public class Answer {
     private String content;
 
     private LocalDateTime createDate;
+
     @ManyToOne
     private Question question;
 }
