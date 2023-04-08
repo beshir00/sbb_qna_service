@@ -1,0 +1,19 @@
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+.nanumgothic * {
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+textarea{
+    width:100%;
+}
+
+input[type=submit],
+button[type=submit]{
+    margin-top:10px;
+}
+
+html > body{
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
