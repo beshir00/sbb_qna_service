@@ -4,21 +4,12 @@
     font-family: 'Nanum Gothic', sans-serif;
 }
 
-textarea{
-    width:100%;
-}
-
-minimum{
-    min-width: 800px;
-    min-height: 300px;
-}
-
-input[type=submit],
-button[type=submit]{
-    margin-top:10px;
-}
-
-html > body{
+html > body {
     font-family: 'Nanum Gothic', sans-serif;
 }
 
+/* lib */
+a {
+    color: inherit;
+    text-decoration: none;
+}
