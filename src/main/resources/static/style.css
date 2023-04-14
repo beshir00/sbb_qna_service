@@ -8,6 +8,11 @@ textarea{
     width:100%;
 }
 
+minimum{
+    min-width: 800px;
+    min-height: 300px;
+}
+
 input[type=submit],
 button[type=submit]{
     margin-top:10px;
