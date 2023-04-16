@@ -1,11 +1,12 @@
-@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
-.nanumgothic * {
-    font-family: 'Nanum Gothic', sans-serif;
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+.notosanskr * {
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 html > body {
-    font-family: 'Nanum Gothic', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 /* lib */
