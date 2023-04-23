@@ -1,6 +1,7 @@
 <html
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://thymeleaf.org/extras/spring-security"
         layout:decorate="~{layout}">
 
 <div layout:fragment="content" class="container my-3">
@@ -36,8 +37,12 @@
     <!-- 답변 작성 -->
     <form th:action="@{|/answer/create/${question.id}|}" th:object="${answerForm}" method="POST" class="my-3">
         <div th:replace="~{form_errors :: formErrorsFragment}"></div>
-        <textarea  th:field="*{content}" rows="10" class="form-control"></textarea>
-        <button type="submit" class="btn btn-primary my-2">답변등록</button>
+
+        <textarea sec:authorize="isAnonymous()" disabled th:field="*{content}" class="form-control" rows="10"></textarea>
+        <textarea sec:authorize="isAuthenticated()" th:field="*{content}" class="form-control" rows="10"></textarea>
+
+        <button sec:authorize="isAnonymous()" disabled type="submit" class="btn btn-primary my-2">답변등록</button>
+        <button sec:authorize="isAuthenticated()" type="submit" class="btn btn-primary my-2">답변등록</button>
     </form>
 </div>
 
