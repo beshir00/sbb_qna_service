@@ -4,6 +4,7 @@ import com.ll.exam.sbb.answer.Answer;
 import com.ll.exam.sbb.answer.AnswerRepository;
 import com.ll.exam.sbb.question.Question;
 import com.ll.exam.sbb.question.QuestionRepository;
+import com.ll.exam.sbb.user.SiteUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 public class AnswerRepositoryTest {
@@ -26,7 +25,6 @@ public class AnswerRepositoryTest {
 
     @Autowired
     private AnswerRepository answerRepository;
-    private int lastSampleDataId;
 
     @BeforeEach
     void beforeEach() {
@@ -34,11 +32,14 @@ public class AnswerRepositoryTest {
         makeSampleData();
     }
 
-    private void clearData() {
+    public static void clearData(AnswerRepository answerRepository, QuestionRepository questionRepository){
         QuestionRepositoryTest.clearData(questionRepository);
 
         answerRepository.deleteAll();
         answerRepository.truncateTable();
+    }
+    private void clearData() {
+        clearData(answerRepository, questionRepository);
     }
 
     private void makeSampleData() {
@@ -49,11 +50,13 @@ public class AnswerRepositoryTest {
 
         Answer a1 = new Answer();
         a1.setContent("sbb는 질문답변 게시판입니다.");
+        a1.setAuthor(new SiteUser(1L));
         a1.setCreateDate(LocalDateTime.now());
         q.addAnswer(a1);
 
         Answer a2 = new Answer();
         a2.setContent("네네 맞아요!!");
+        a2.setAuthor(new SiteUser(2L));
         a2.setCreateDate(LocalDateTime.now());
         q.addAnswer(a2);
 
@@ -63,7 +66,7 @@ public class AnswerRepositoryTest {
     @Test
     @Transactional
     @Rollback(false)
-    void  저장() {
+    void 저장() {
         Question q = questionRepository.findById(2).get();
 
         Answer a = new Answer();
