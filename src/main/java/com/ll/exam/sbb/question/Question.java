@@ -23,6 +23,7 @@ public class Question {
     @Column(columnDefinition = "TEXT") // TEXT
     private String content;
     private LocalDateTime createDate;
+    private LocalDateTime modifyDate;
     @ManyToOne
     private SiteUser author;
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
