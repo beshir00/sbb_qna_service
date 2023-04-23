@@ -38,9 +38,13 @@ public class UserServiceTest {
     }
 
     public static void clearData(UserRepository userRepository, AnswerRepository answerRepository, QuestionRepository questionRepository) {
-        AnswerRepositoryTest.clearData(answerRepository, questionRepository);
-        QuestionRepositoryTest.clearData(questionRepository);
-        userRepository.deleteAll(); // DELETE FROM site_user;
+        answerRepository.deleteAll();
+        answerRepository.truncateTable();
+
+        questionRepository.deleteAll();
+        questionRepository.truncateTable();
+
+        userRepository.deleteAll();
         userRepository.truncateTable();
     }
 
