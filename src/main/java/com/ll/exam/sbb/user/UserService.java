@@ -1,9 +1,11 @@
 package com.ll.exam.sbb.user;
 
+import com.ll.exam.sbb.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 @RequiredArgsConstructor
 @Service
 public class UserService {
@@ -26,5 +28,11 @@ public class UserService {
         }
 
         return user;
+    }
+
+    public SiteUser getUser(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new DataNotFoundException("siteuser not found"));
+
     }
 }
