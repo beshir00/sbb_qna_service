@@ -14,6 +14,10 @@
                 <span th:text="${question.author?.username}"></span>
             </div>
             <div th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+            <div th:if="${question.modifyDate != null}" class="badge bg-light text-dark p-2 text-start mx-3">
+                <div class="mb-2">modified at</div>
+                <div th:text="${#temporals.format(question.modifyDate, 'yyyy-MM-dd HH:mm')}"></div>
+            </div>
 
         </div>
         <div class="card-body">
@@ -49,6 +53,10 @@
                         <span th:text="${question.author?.username}"></span>
                     </div>
                     <div th:text="${#temporals.format(answer.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                    <div th:if="${answer.modifyDate != null}" class="badge bg-light text-dark p-2 text-start mx-3">
+                        <div class="mb-2">modified at</div>
+                        <div th:text="${#temporals.format(answer.modifyDate, 'yyyy-MM-dd HH:mm')}"></div>
+                    </div>
                     <div class="my-3">
                         <a th:href="@{|/answer/modify/${answer.id}|}" class="btn btn-sm btn-outline-secondary"
                            sec:authorize="isAuthenticated()"
