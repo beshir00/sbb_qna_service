@@ -152,7 +152,7 @@ public class QuestionRepositoryTest {
 
     @Test
     void makeManySample(){
-        boolean run = true;
+        boolean run = false;
 
         if (run == false) return;
 
